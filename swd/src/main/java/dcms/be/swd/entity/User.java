@@ -1,16 +1,13 @@
 package dcms.be.swd.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Entity
 @Getter
@@ -43,16 +40,21 @@ public class User {
     @Column
     private String avatar;
 
+    @OneToOne(mappedBy = "user")
+    private Account userAccounts;
+
     @OneToMany(mappedBy = "doctor")
     private Set<Appointment> doctorAppointments;
 
     @OneToMany(mappedBy = "patient")
+    @JsonManagedReference
     private Set<Appointment> patientAppointments;
 
-    @OneToMany(mappedBy = "user")
-    private Set<MedStaffInfo> userMedStaffInfoes;
+    @OneToOne(mappedBy = "user")
+    private MedStaffInfo userMedStaffInfoes;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private Set<StaffShift> userStaffShifts;
 
 }

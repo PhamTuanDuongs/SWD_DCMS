@@ -1,5 +1,6 @@
 package dcms.be.swd.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,19 +25,14 @@ public class Examination {
 
     @Column(length = 1000)
     private String textResult;
-
-    @Column
     private String imgResult;
 
-    @Column(nullable = false)
-    private Long appId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "appointment_id", nullable = false)
+    @JsonIgnore
+    @ManyToOne
     private Appointment appointment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "service_id", referencedColumnName = "id",  nullable = false)
     private Service service;
 
 }

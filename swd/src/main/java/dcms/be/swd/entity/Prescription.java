@@ -1,11 +1,7 @@
 package dcms.be.swd.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,14 +13,14 @@ public class Prescription {
 
     @Id
     @Column(nullable = false, updatable = false, length = 500)
-    private Long id;
-
-    @Column(nullable = false)
     private String details;
 
+    @Column(nullable = false)
+    private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "app_point_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "app_point_id", referencedColumnName = "id",  nullable = false, unique = true)
+    @JsonBackReference
     private Appointment appPoint;
 
 }

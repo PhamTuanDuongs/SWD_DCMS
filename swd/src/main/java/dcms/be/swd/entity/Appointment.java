@@ -1,14 +1,9 @@
 package dcms.be.swd.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
 import java.time.OffsetDateTime;
 import java.util.Set;
 import lombok.Getter;
@@ -37,28 +32,26 @@ public class Appointment {
     @Column
     private OffsetDateTime createdAt;
 
-    @Column(unique = true)
-    private Long presriptionId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctor_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "doctor_id",  referencedColumnName = "id",  nullable = false)
+    @JsonBackReference
     private User doctor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "patient_id",  referencedColumnName = "id",  nullable = false)
+    @JsonBackReference
     private User patient;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "feedback_id")
-    private Feedback feedback;
-
     @OneToMany(mappedBy = "appointment")
+    @JsonManagedReference
     private Set<Examination> appointmentExaminations;
 
     @OneToMany(mappedBy = "appPoint")
+    @JsonManagedReference
     private Set<Feedback> appPointFeedbacks;
 
-    @OneToMany(mappedBy = "appPoint")
-    private Set<Prescription> appPointPrescriptions;
+    @OneToOne(mappedBy = "appPoint")
+    @JsonManagedReference
+    private Prescription appPointPrescriptions;
 
 }

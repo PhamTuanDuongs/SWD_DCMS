@@ -1,5 +1,6 @@
 package dcms.be.swd.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,11 +31,9 @@ public class Feedback {
     @Column(length = 500)
     private String comment;
 
-    @OneToMany(mappedBy = "feedback")
-    private Set<Appointment> feedbackAppointments;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "app_point_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "app_point_id", referencedColumnName = "id",  nullable = false)
+    @JsonBackReference
     private Appointment appPoint;
 
 }

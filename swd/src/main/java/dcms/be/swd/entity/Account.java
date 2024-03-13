@@ -1,17 +1,13 @@
 package dcms.be.swd.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 
 @Entity
@@ -36,14 +32,15 @@ public class Account {
     @Column(length = 62)
     private String resetPasswordToken;
 
-    @Column(nullable = false)
-    private Long userId;
-
-    @Column
-    private OffsetDateTime createdAt;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "role_id",  referencedColumnName = "id",  nullable = false)
     private Role role;
 
+    @OneToOne
+    @JoinColumn(name = "user_id",  referencedColumnName = "id",  nullable = false, unique = true)
+    private User user;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Timestamp createdAt;
 }

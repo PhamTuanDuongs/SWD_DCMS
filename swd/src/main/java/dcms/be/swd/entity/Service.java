@@ -1,19 +1,20 @@
 package dcms.be.swd.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.Set;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.*;
 
 
-@Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "`service`")
 public class Service {
 
     @Id
@@ -32,8 +33,5 @@ public class Service {
 
     @Column(nullable = false)
     private Double price;
-
-    @OneToMany(mappedBy = "service")
-    private Set<Examination> serviceExaminations;
-
 }
+
