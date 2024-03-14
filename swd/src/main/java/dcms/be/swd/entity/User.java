@@ -1,6 +1,7 @@
 package dcms.be.swd.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -41,20 +42,23 @@ public class User {
     private String avatar;
 
     @OneToOne(mappedBy = "user")
+    @JsonIgnore
     private Account userAccounts;
 
     @OneToMany(mappedBy = "doctor")
+    @JsonIgnore
     private Set<Appointment> doctorAppointments;
 
     @OneToMany(mappedBy = "patient")
-    @JsonManagedReference
+    @JsonIgnore
     private Set<Appointment> patientAppointments;
 
     @OneToOne(mappedBy = "user")
+    @JsonIgnore
     private MedStaffInfo userMedStaffInfoes;
 
     @OneToMany(mappedBy = "user")
-    @JsonBackReference
+    @JsonIgnore
     private Set<StaffShift> userStaffShifts;
 
 }
