@@ -1,6 +1,7 @@
 package dcms.be.swd.controller;
 
 import dcms.be.swd.dto.service.PageServiceResponseDTO;
+import dcms.be.swd.dto.service.ServiceDTO;
 import dcms.be.swd.entity.Service;
 import dcms.be.swd.repository.ServiceRepository;
 import dcms.be.swd.service.ServiceService;
@@ -72,7 +73,7 @@ public class ServiceController {
      * @return This method returns a Service object that contains the information of the service that was retrieved.<p>
      */
     @GetMapping(value = "/{id}")
-    public Service get(@PathVariable("id") Integer id) {
+    public ServiceDTO getServiceDetail(@PathVariable("id") Integer id) {
         return serviceService.getServiceById(id);
     }
 

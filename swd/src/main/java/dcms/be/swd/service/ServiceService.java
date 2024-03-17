@@ -2,6 +2,7 @@
 package dcms.be.swd.service;
 
 
+import dcms.be.swd.dto.service.ServiceDTO;
 import dcms.be.swd.entity.Service;
 import dcms.be.swd.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,15 @@ public class ServiceService {
      * @param id The ID of the service to be retrieved
      * @return The service or null
      */
-    public Service getServiceById(Integer id) {
+    public ServiceDTO getServiceById(Integer id) {
+        Service service= serviceRepository.findById(id).orElse(null);
+        ServiceDTO serviceDTO=new ServiceDTO();
+        serviceDTO.setName(service.getName());
+        serviceDTO.setDescription(service.getDescription());
+        serviceDTO.setPrice(service.getPrice());
+        return serviceDTO;
+    }
+    public Service getServiceDetailById(Integer id) {
         return serviceRepository.findById(id).orElse(null);
     }
 }
