@@ -34,10 +34,14 @@ public interface UserRepository extends JpaRepository<User, Integer> {
                    u.phoneNo as phoneNo, 
                    u.gender as gender, 
                    u.nationalId as nationalId, 
-                   u.avatar as avatar,
                    m.quanlification as quanlification,
-                    m.experience as experience
+                   m.experience as experience,
+                   a.email as email, 
+                   a.createdAt as createdAt, 
+                   r.roleName as roleName 
             from User u 
+            join u.userAccounts a 
+            join a.role r 
             join u.userMedStaffInfoes m
             where u.id = :id
                 """)

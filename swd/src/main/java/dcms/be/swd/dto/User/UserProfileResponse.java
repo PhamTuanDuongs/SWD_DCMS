@@ -9,7 +9,6 @@ public interface UserProfileResponse {
     String getPhoneNo();
     Boolean getGender();
     String getNationalId();
-    String getAvatar();
     String getEmail();
     String getRoleName();
     LocalDate getCreatedAt();
