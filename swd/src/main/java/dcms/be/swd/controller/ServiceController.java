@@ -61,6 +61,7 @@ public class ServiceController {
     @PostMapping
     @RequestMapping("/add")
     public Service add(@RequestBody Service service) {
+        service.setDeleted(false);
         return serviceService.add(service);
     }
 
@@ -84,7 +85,7 @@ public class ServiceController {
     @PostMapping
     @RequestMapping("/edit")
     public Service edit(@RequestBody Service service) {
-        System.out.println("edit" + service);
+        service.setDeleted(false);
         return serviceService.edit(service);
     }
 

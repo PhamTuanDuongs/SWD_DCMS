@@ -1,11 +1,11 @@
 package dcms.be.swd.controller;
 
+import dcms.be.swd.dto.medstaff.MedStaffResponse;
 import dcms.be.swd.dto.medstaff.MedstaffDto;
 import dcms.be.swd.entity.MedStaffInfo;
 import dcms.be.swd.entity.User;
 import dcms.be.swd.repository.UserRepository;
 import dcms.be.swd.service.MedstaffService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +23,8 @@ public class MedstaffController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MedStaffInfo> findEmployeeDetail(@PathVariable long id) throws Exception {
-        MedStaffInfo info = new MedStaffInfo();
-        info.setId(id);
-        return medstaffService.findEmployeeDetail(info);
+    public ResponseEntity<MedStaffResponse> findEmployeeDetail(@PathVariable int id) throws Exception {
+        return medstaffService.findEmployeeDetail(id);
     }
 
     @DeleteMapping("/delete/{id}")
