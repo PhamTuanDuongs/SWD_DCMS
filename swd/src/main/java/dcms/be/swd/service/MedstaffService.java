@@ -1,9 +1,11 @@
 package dcms.be.swd.service;
 
+import dcms.be.swd.dto.medstaff.MedStaffResponse;
 import dcms.be.swd.entity.Account;
 import dcms.be.swd.entity.MedStaffInfo;
 import dcms.be.swd.repository.AccountRepository;
 import dcms.be.swd.repository.MedStaffInfoRepository;
+import dcms.be.swd.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,13 @@ public class MedstaffService {
 
     private MedStaffInfoRepository medStaffInfoRepository;
     private AccountRepository accountRepository;
+    private final UserRepository userRepository;
 
-    public MedstaffService(MedStaffInfoRepository medStaffInfoRepository, AccountRepository accountRepository) {
+    public MedstaffService(MedStaffInfoRepository medStaffInfoRepository, AccountRepository accountRepository,
+                           UserRepository userRepository) {
         this.medStaffInfoRepository = medStaffInfoRepository;
         this.accountRepository = accountRepository;
+        this.userRepository = userRepository;
     }
 
     public ResponseEntity<MedStaffInfo> deleteEmployee(MedStaffInfo medstaff) throws Exception {
@@ -31,10 +36,8 @@ public class MedstaffService {
         return new ResponseEntity<>(medstaff, HttpStatus.OK);
     }
 
-    public ResponseEntity<MedStaffInfo> findEmployeeDetail(MedStaffInfo medstaff) throws Exception {
-        MedStaffInfo medStaffInfo = medStaffInfoRepository
-                .findById(medstaff.getId())
-                .orElseThrow(() -> new Exception("Employee is not found"));
+    public ResponseEntity<MedStaffResponse> findEmployeeDetail(int id) throws Exception {
+        MedStaffResponse medStaffInfo = userRepository.getMedStaffById(id);
         return new ResponseEntity<>(medStaffInfo, HttpStatus.OK);
 
     }
