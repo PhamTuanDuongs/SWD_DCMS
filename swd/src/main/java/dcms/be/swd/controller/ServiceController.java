@@ -95,26 +95,7 @@ public class ServiceController {
      * @return This method returns a ResponseEntity object that contains a String message indicating whether the service was deleted successfully or not, along with an HTTP status code.<p>
      */
     @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<String> deleteService(@PathVariable("id") Integer id) {
-        String result = null;
-        HttpStatus httpStatus = null;
-        try {
-            Service service = serviceRepository.findById(id).get();
-            if (service != null) {
-                Service oldService = serviceRepository.findById(id).get();
-                oldService.setDeleted(true);
-                serviceRepository.save(oldService);
-                return ResponseEntity.ok().body("Service is deleted successfully");
-            } else {
-                httpStatus = HttpStatus.BAD_REQUEST;
-                result = "Not found service";
-                return new ResponseEntity<>(result, httpStatus);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-            result = "Server error";
-            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-            return new ResponseEntity<>(result, httpStatus);
-        }
+    public ResponseEntity<Object> deleteService(@PathVariable("id") Integer id) {
+        return serviceService.deleteService(id);
     }
 }

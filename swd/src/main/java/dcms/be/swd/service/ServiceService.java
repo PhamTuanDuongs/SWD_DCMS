@@ -7,6 +7,8 @@ import dcms.be.swd.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 
 /**
@@ -67,6 +69,22 @@ public class ServiceService {
      */
     public Service getServiceById(Integer id) {
         return serviceRepository.findById(id).orElse(null);
+    }
+
+    public ResponseEntity<Object> deleteService(Integer id) {
+        try {
+            Service service = serviceRepository.findById(id).get();
+            if (service != null) {
+                Service oldService = serviceRepository.findById(id).get();
+                oldService.setDeleted(true);
+                serviceRepository.save(oldService);
+                return ResponseEntity.ok().body("Service is deleted successfully");
+            } else {
+                return new ResponseEntity<>("Not found service", HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
 
