@@ -45,4 +45,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value="SELECT * FROM User u", nativeQuery=true)
     Page<User> findAllEmployeePaginate(Pageable paging);
 
+    @Query("SELECT u from User u join Account a on u.id = a.user.id WHERE u.nationalId like %?1 and a.role.roleName ilike 'user' ")
+    Page<User> findAllPatients(String nationalId, Pageable paging);
 }
