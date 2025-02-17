@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.3</version>
-        <relativePath /><!-- lookup parent from repository -->
+        <relativePath/><!-- lookup parent from repository -->
     </parent>
     <groupId>dcms.be</groupId>
     <artifactId>swd</artifactId>
@@ -38,7 +38,7 @@
         <dependency>
             <groupId>io.github.wimdeblauwe</groupId>
             <artifactId>error-handling-spring-boot-starter</artifactId>
-            <version>4.2.0</version>
+            <version>4.5.0</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
